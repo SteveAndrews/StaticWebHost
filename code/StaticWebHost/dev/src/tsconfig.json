@@ -1,0 +1,25 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "target": "ES2020",
+        "module": "ES2020",
+        "moduleResolution": "Bundler",
+        "lib": [ "ES2020", "DOM", "DOM.Iterable" ],
+        "strict": true,
+        "noImplicitAny": true,
+        "noUnusedLocals": true,
+        "strictNullChecks": true,
+        "useDefineForClassFields": true,
+        "allowUnreachableCode": false,
+        "removeComments": true,
+        "incremental": false,
+        "rootDir": "src",
+        "outDir": "wwwroot/js",
+        "resolveJsonModule": true,
+        "isolatedModules": false,
+        "skipLibCheck": true,
+        "noEmitOnError": false,
+        "types": [] // avoids accidental @types/node in a browser project
+    },
+    "include": [ "src/**/*.ts", "types/**/*.d.ts" ]
+}

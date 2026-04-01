@@ -1,0 +1,135 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "StaticWebHost/1.0.0": {
+        "dependencies": {
+          "DartSassHost": "2.0.2",
+          "JavaScriptEngineSwitcher.Jint": "3.33.1"
+        },
+        "runtime": {
+          "StaticWebHost.dll": {}
+        }
+      },
+      "Acornima/1.3.0": {
+        "runtime": {
+          "lib/net8.0/Acornima.dll": {
+            "assemblyVersion": "1.3.0.0",
+            "fileVersion": "1.3.0.0"
+          }
+        }
+      },
+      "AdvancedStringBuilder/0.2.0": {
+        "runtime": {
+          "lib/net9.0/AdvancedStringBuilder.dll": {
+            "assemblyVersion": "0.2.0.0",
+            "fileVersion": "0.2.0.0"
+          }
+        }
+      },
+      "DartSassHost/2.0.2": {
+        "dependencies": {
+          "JavaScriptEngineSwitcher.Core": "3.31.0"
+        },
+        "runtime": {
+          "lib/net8.0/DartSassHost.dll": {
+            "assemblyVersion": "2.0.2.0",
+            "fileVersion": "2.0.2.0"
+          }
+        }
+      },
+      "JavaScriptEngineSwitcher.Core/3.31.0": {
+        "dependencies": {
+          "AdvancedStringBuilder": "0.2.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/JavaScriptEngineSwitcher.Core.dll": {
+            "assemblyVersion": "3.31.0.0",
+            "fileVersion": "3.31.0.0"
+          }
+        },
+        "resources": {
+          "lib/netstandard2.0/ru-RU/JavaScriptEngineSwitcher.Core.resources.dll": {
+            "locale": "ru-RU"
+          }
+        }
+      },
+      "JavaScriptEngineSwitcher.Jint/3.33.1": {
+        "dependencies": {
+          "JavaScriptEngineSwitcher.Core": "3.31.0",
+          "Jint": "4.6.3"
+        },
+        "runtime": {
+          "lib/net8.0/JavaScriptEngineSwitcher.Jint.dll": {
+            "assemblyVersion": "3.33.1.0",
+            "fileVersion": "3.33.1.0"
+          }
+        }
+      },
+      "Jint/4.6.3": {
+        "dependencies": {
+          "Acornima": "1.3.0"
+        },
+        "runtime": {
+          "lib/net8.0/Jint.dll": {
+            "assemblyVersion": "4.6.3.0",
+            "fileVersion": "4.5.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "StaticWebHost/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Acornima/1.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-AJ7nvroIvBmRYj8o7fwDTCoY8ptAhdBpFqEfMXku6eQt7k67niAdBq7q+GQeNufflbNaSvwOEcnRwCR9nMj81Q==",
+      "path": "acornima/1.3.0",
+      "hashPath": "acornima.1.3.0.nupkg.sha512"
+    },
+    "AdvancedStringBuilder/0.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+XOjGvq+4pnmAWLLUimuINKsQTHEqxuA6eDkqUmzIBEsQH1Uz55nGmgVHE6QsocOk1BGnu1janyPeH+cOt00Tg==",
+      "path": "advancedstringbuilder/0.2.0",
+      "hashPath": "advancedstringbuilder.0.2.0.nupkg.sha512"
+    },
+    "DartSassHost/2.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kw+Dq8ZoLgw1zHsOyZkwumzwsIDuTbV8s0OOp6CPWp1Yf0xn5P3NLbRKRKOmXFGvyxIv9yEw5wZTVCA7L3g+Cw==",
+      "path": "dartsasshost/2.0.2",
+      "hashPath": "dartsasshost.2.0.2.nupkg.sha512"
+    },
+    "JavaScriptEngineSwitcher.Core/3.31.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-IFniRChO1iFj9umQ32tm7D5+ogtJGNPFwp2opPupo+biqUsBRhr7Vz9GZyGay5wisvFdylmcnFo99gANcOileg==",
+      "path": "javascriptengineswitcher.core/3.31.0",
+      "hashPath": "javascriptengineswitcher.core.3.31.0.nupkg.sha512"
+    },
+    "JavaScriptEngineSwitcher.Jint/3.33.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-T45xxVFLdMWLDegEmRnLlV4ix4rVPsgXkgvuwb+FLImssCjBmTQfImwCDE0JxOO9VFVehp14knonXu6gRMNWtQ==",
+      "path": "javascriptengineswitcher.jint/3.33.1",
+      "hashPath": "javascriptengineswitcher.jint.3.33.1.nupkg.sha512"
+    },
+    "Jint/4.6.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-sXJrGUFluoXdfAp1F6mQdTa7RVooUKhK5HxqIuJ9ACDZv9CkNC7x1x3DamgTWj5giKI+0fw4RKl1Run9SYSE0A==",
+      "path": "jint/4.6.3",
+      "hashPath": "jint.4.6.3.nupkg.sha512"
+    }
+  }
+}
