@@ -366,3 +366,4 @@ FodyWeavers.xsd
 /StaticWebHost/_sys/state.json
 /StaticWebHost/wwwroot/
 /.idea/**.*
+/code/TODO.txt

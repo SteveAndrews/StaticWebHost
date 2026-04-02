@@ -61,7 +61,7 @@ internal class Program
             {
                 var path = context.Request.Path.Value ?? string.Empty;
 
-                var shouldInject = options.StatusIndicatorUrlPaths
+                var shouldInject = options.Config.StatusIndicatorUrlPaths
                     .Any(p => path.Equals(p, StringComparison.OrdinalIgnoreCase));
 
                 if (!shouldInject)

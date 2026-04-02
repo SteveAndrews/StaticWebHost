@@ -12,7 +12,7 @@ namespace StaticWebHost.Services.FileServices
             var hasError = false;
             var anyChanged = false;
 
-            foreach (var entry in options.ScssCompilationPaths)
+            foreach (var entry in options.SCSSBuild.ScssCompilationPaths)
             {
                 var scanDir = this.ToAbsolute(root, entry.ScanDir);
                 var outDir = this.ToAbsolute(root, entry.Output);

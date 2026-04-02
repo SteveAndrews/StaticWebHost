@@ -37,7 +37,7 @@ namespace StaticWebHost.Services.FileServices
                 return false;
             }
 
-            var excludedPaths = options.StaticCopyExcludePaths
+            var excludedPaths = options.StaticFilesCopy.StaticCopyExcludePaths
                 .Select(p => Path.Combine(env.ContentRootPath, p.TrimStart('/', '\\')))
                 .ToHashSet(StringComparer.OrdinalIgnoreCase);
 

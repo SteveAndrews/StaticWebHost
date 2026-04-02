@@ -9,9 +9,9 @@ namespace StaticWebHost.Services.FileServices
         IWebHostEnvironment env,
         ILogger<TypeScriptCompilerService> logger) : BaseFileService
     {
-        private readonly string _esbuildPath = Path.Combine(env.ContentRootPath, options.EsbuildPath.TrimStart('/', '\\'));
+        private readonly string _esbuildPath = Path.Combine(env.ContentRootPath, options.TypeScriptBuild.EsbuildPath.TrimStart('/', '\\'));
 
-        private readonly string _tsCompileArgs = options.EsbuildCompileArgs;
+        private readonly string _tsCompileArgs = options.TypeScriptBuild.EsbuildCompileArgs;
 
         internal async Task<FileServiceResult> Process(StaticWebHostOptions options, IWebHostEnvironment env)
         {
@@ -24,13 +24,13 @@ namespace StaticWebHost.Services.FileServices
                 return new(false, false);
             }
 
-            if (string.IsNullOrWhiteSpace(options.TypeScriptRoot) || options.TypeScriptCompilationFiles.Count == 0)
+            if (string.IsNullOrWhiteSpace(options.TypeScriptBuild.TypeScriptRoot) || options.TypeScriptBuild.TypeScriptCompilationFiles.Count == 0)
             {
                 return new(false, false);
             }
 
             // Scan the entire TypeScriptRoot tree once for any changes.
-            var tsRoot = this.ToAbsolute(root, options.TypeScriptRoot);
+            var tsRoot = this.ToAbsolute(root, options.TypeScriptBuild.TypeScriptRoot);
             var allTsFiles = Directory.GetFiles(tsRoot, "*.ts", SearchOption.AllDirectories);
             var tsChanged = allTsFiles.Any(state.HasChanged);
 
@@ -43,7 +43,7 @@ namespace StaticWebHost.Services.FileServices
 
             var hasError = false;
 
-            foreach (var entry in options.TypeScriptCompilationFiles)
+            foreach (var entry in options.TypeScriptBuild.TypeScriptCompilationFiles)
             {
                 var tsFile = this.ToAbsolute(root, entry.Entry);
                 var jsFile = this.ToAbsolute(root, entry.Output);

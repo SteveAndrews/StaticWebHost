@@ -83,58 +83,62 @@ The `dev/` folder is where all development happens. Open it in your IDE. The `ww
 
 ## Configuration
 
-All paths are configured in `appsettings.json` under the `StaticWebHost` key:
+All paths are configured in `appsettings.json` under the `StaticWebHost` key, organized into four sections:
 
 ```json
 "StaticWebHost": {
-    "Mode": "BuildAndStatus",
-    "PollingIntervalSeconds": 2,
-    "StatusIndicatorUrlPaths": [ "/", "/index.html" ],
-    "EsbuildPath": "/_sys/esbuild.exe",
-    "EsbuildCompileArgs": "--bundle --minify --format=esm --target=es2020",
-    "TypeScriptCompilationPaths": [
-        {
-            "entry": "/dev/src/main/app.ts",
-            "output": "/wwwroot/js/app.bundle.min.js"
-        }
-    ],
-    "ScssCompilationPaths": [
-        {
-            "scanDir": "/dev/styles",
-            "output": "/wwwroot/styles"
-        }
-    ],
-    "StaticCopyExcludePaths": [
-        "/dev/src",
-        "/dev/styles"
-    ]
+    "Config": {
+        "Mode": "BuildAndStatus",
+        "PollingIntervalSeconds": 2,
+        "StatusIndicatorUrlPaths": [
+            "/",
+            "/index.html"
+        ]
+    },
+    "TypeScriptBuild": {
+        "Enable": true,
+        "EsbuildPath": "/_sys/esbuild.exe",
+        "EsbuildCompileArgs": "--bundle --minify --format=esm --target=es2020",
+        "TypeScriptRoot": "/dev/src",
+        "TypeScriptCompilationFiles": [
+            {
+                "entry": "/dev/src/main/app.ts",
+                "output": "/wwwroot/js/app.bundle.min.js"
+            }
+        ]
+    },
+    "SCSSBuild": {
+        "Enable": true,
+        "ScssCompilationPaths": [
+            {
+                "scanDir": "/dev/styles",
+                "output": "/wwwroot/styles"
+            }
+        ]
+    },
+    "StaticFilesCopy": {
+        "Enable": true,
+        "StaticCopyExcludePaths": [
+            "/dev/src",
+            "/dev/styles"
+        ]
+    }
 }
 ```
 
 All paths are relative to the project root. Output paths use the `/wwwroot/` prefix explicitly.
 
-### Mode
+### Config.Mode
 
 Controls the level of tooling active at runtime:
 
 | Value | Behaviour |
 |---|---|
-| `BuildAndStatus` | Watcher runs, build status indicator injected into configured pages | 
+| `BuildAndStatus` | Watcher runs, build status indicator injected into configured pages |
 | `Build` | Watcher runs. No indicator |
-| `Off` | Nothing runs. Pure static file host |
+| `Off` | No watcher. Pure static file host serves files from `/wwwroot` |
 
-### StaticCopyExcludePaths
-
-Paths under `dev/` that should not be copied to `wwwroot/`. Typically this includes your TypeScript and SCSS source directories since those are handled by their own compilation pipelines. Any path under `dev/wwwroot/` not excluded will be synced to `wwwroot/` automatically.
-
-```json
-"StaticCopyExcludePaths": [
-    "/dev/src",
-    "/dev/styles"
-]
-```
-
-### StatusIndicatorUrlPaths
+### Config.StatusIndicatorUrlPaths
 
 The URL paths where the build status indicator script will be injected. Both `/` and `/index.html` should be listed since the browser may request either:
 
@@ -144,12 +148,14 @@ The URL paths where the build status indicator script will be injected. Both `/`
 
 For multi-page sites, add each page that should show the indicator.
 
-### Multiple TypeScript entry points
+### TypeScriptBuild
 
-Multiple TypeScript entry points are supported. Each is watched and compiled independently. A change in one entry point's source tree does not trigger a recompile of the others.
+The `EsbuildPath` should point to the esbuild binary for your platform (see Requirements). The binary is not included; download it from [esbuild releases](https://github.com/evanw/esbuild/releases).
+
+`TypeScriptRoot` is the root directory watched for TypeScript changes. Each entry in `TypeScriptCompilationFiles` defines an entry point and its output path. Multiple entry points are supported and watched independently — a change in one entry point's source tree does not trigger a recompile of the others:
 
 ```json
-"TypeScriptCompilationPaths": [
+"TypeScriptCompilationFiles": [
     { "entry": "/dev/src/main/app.ts",      "output": "/wwwroot/js/app.bundle.min.js" },
     { "entry": "/dev/src/kanban/kanban.ts", "output": "/wwwroot/js/kanban.bundle.min.js" }
 ]
@@ -159,11 +165,17 @@ Organise TypeScript by feature directory under `dev/src/`. Each entry point watc
 
 Note that esbuild transpiles TypeScript without type checking. Type errors will not fail the build. IDEs such as Visual Studio and Rider should catch type errors as you work.
 
-### SCSS partials
+### TypeScriptBuild.EsbuildCompileArgs
 
-Partial files (prefixed with `_`, e.g. `_variables.scss`) are supported. Saving a partial triggers a recompile of all non-partial files in the same directory.
+The arguments passed to esbuild for every TypeScript compilation. The default produces a minified ESM bundle with source map:
 
-### Multiple SCSS directories
+```
+--bundle --minify --format=esm --target=es2020
+```
+
+### SCSSBuild
+
+Each entry in `ScssCompilationPaths` defines a directory to scan for `.scss` files and an output directory. Multiple SCSS directories are supported:
 
 ```json
 "ScssCompilationPaths": [
@@ -172,12 +184,14 @@ Partial files (prefixed with `_`, e.g. `_variables.scss`) are supported. Saving 
 ]
 ```
 
-### EsbuildCompileArgs
+Partial files (prefixed with `_`, e.g. `_variables.scss`) are supported. Saving a partial triggers a recompile of all non-partial files in the same directory.
 
-The arguments passed to esbuild for every TypeScript compilation. The default produces a minified ESM bundle with source map:
+### StaticFilesCopy.StaticCopyExcludePaths
 
-```
---bundle --minify --format=esm --target=es2020
+A string array of paths under `dev/` that should not be copied to `wwwroot/`. Any path not excluded will be synced to automatically.
+
+```json
+"StaticCopyExcludePaths": [ "/dev/pathToExclude" ]
 ```
 
 ## Demo code

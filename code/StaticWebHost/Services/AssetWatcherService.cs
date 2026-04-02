@@ -46,7 +46,7 @@ namespace StaticWebHost.Services
 
         private async Task PollLoop(CancellationToken ct)
         {
-            var timer = new PeriodicTimer(TimeSpan.FromSeconds(options.PollingIntervalSeconds));
+            var timer = new PeriodicTimer(TimeSpan.FromSeconds(options.Config.PollingIntervalSeconds));
 
             try
             {
@@ -67,19 +67,28 @@ namespace StaticWebHost.Services
             var hasError = false;
 
             // ----- Static Files -----
-            var copyResult = await staticCopy.Process();
-            anyChanged |= copyResult.AnyChanged;
-            hasError |= copyResult.HasError;
+            if (options.StaticFilesCopy.Enable)
+            {
+                var copyResult = await staticCopy.Process();
+                anyChanged |= copyResult.AnyChanged;
+                hasError |= copyResult.HasError;
+            }
 
             // ----- SCSS -----
-            var scssResult = await scss.Process(options, env);
-            anyChanged |= scssResult.AnyChanged;
-            hasError |= scssResult.HasError;
+            if (options.SCSSBuild.Enable)
+            {
+                var scssResult = await scss.Process(options, env);
+                anyChanged |= scssResult.AnyChanged;
+                hasError |= scssResult.HasError;
+            }
 
             // ----- TypeScript -----
-            var tsResult = await ts.Process(options, env);
-            anyChanged |= tsResult.AnyChanged;
-            hasError |= tsResult.HasError;
+            if (options.TypeScriptBuild.Enable)
+            {
+                var tsResult = await ts.Process(options, env);
+                anyChanged |= tsResult.AnyChanged;
+                hasError |= tsResult.HasError;
+            }
 
             if (anyChanged)
             {
